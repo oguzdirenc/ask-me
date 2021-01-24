@@ -19,6 +19,7 @@ class Posts extends react.Component {
   renderPosts = (username, title, description, id) => {
     return (
       <Card
+        style={{ wordWrap: "break-word" }}
         key={id}
         onClick={() => this.props.history.push(`/postDetails/${id}`)}
       >
