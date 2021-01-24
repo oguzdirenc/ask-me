@@ -1,4 +1,5 @@
 import react from "react";
+import { NavLink } from "react-router-dom";
 import { Menu } from "semantic-ui-react";
 
 class Navbar extends react.Component {
@@ -16,19 +17,22 @@ class Navbar extends react.Component {
     return (
       <div>
         <Menu pointing secondary>
-          <Menu.Item
-            name="home"
-            active={this.state.activeItem === "home"}
-            onClick={this.handleItemClick}
-            as="div"
-          />
-
-          <Menu.Item
-            name="dad-jokes"
-            active={this.state.activeItem === "dad-jokes"}
-            onClick={this.handleItemClick}
-            as="div"
-          />
+          <NavLink to="/">
+            <Menu.Item
+              name="home"
+              active={this.state.activeItem === "home"}
+              onClick={this.handleItemClick}
+              as="div"
+            />
+          </NavLink>
+          <NavLink to="/dadJokes">
+            <Menu.Item
+              name="dad-jokes"
+              active={this.state.activeItem === "dad-jokes"}
+              onClick={this.handleItemClick}
+              as="div"
+            />
+          </NavLink>
         </Menu>
       </div>
     );

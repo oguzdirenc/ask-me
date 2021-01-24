@@ -9,22 +9,27 @@ import DadJokes from "./components/DadJokes";
 function App() {
   return (
     <div className="App">
-      <Grid>
-        <Grid.Row>
-          <Navbar />
-        </Grid.Row>
-        <Grid.Row>
-          <Grid.Column width={16}>
-            <BrowserRouter>
-              <Switch>
-                <Route path="/" component={Posts} exact></Route>
-                <Route path="/postDetails/:id" component={PostDetails}></Route>
-                <Route path="/dadJokes" component={DadJokes}></Route>
-              </Switch>
-            </BrowserRouter>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
+      <BrowserRouter>
+        <div>
+          <Grid>
+            <Grid.Row>
+              <Navbar />
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column width={16}>
+                <Switch>
+                  <Route path="/" component={Posts} exact></Route>
+                  <Route
+                    path="/postDetails/:id"
+                    component={PostDetails}
+                  ></Route>
+                  <Route path="/dadJokes" component={DadJokes}></Route>
+                </Switch>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </div>
+      </BrowserRouter>
     </div>
   );
 }
