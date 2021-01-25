@@ -3,24 +3,26 @@ import { Card, Grid } from "semantic-ui-react";
 import AddPost from "./AddPost";
 import { v4 as uuidv4 } from "uuid";
 import { withRouter } from "react-router-dom";
+import axios from "axios";
 
 class Posts extends react.Component {
   state = {
-    posts: [
-      {
-        username: "askjdhakfhhsfd",
-        title: "dalksdlksdgnvsldmnvlkwemflndfblkdnfv",
-        description: "sflknlfnsakjglbldkfjbvkldrsjbgdb",
-        id: 2,
-      },
-    ],
+    posts: [],
   };
+
+  componentDidMount() {
+    axios.get("http://localhost:8080/posts/allPosts").then((response) =>
+      this.setState({
+        posts: response.data,
+      })
+    );
+  }
 
   renderPosts = (username, title, description, id) => {
     return (
       <Card
         style={{ wordWrap: "break-word" }}
-        key={id}
+        key={uuidv4()}
         onClick={() => this.props.history.push(`/postDetails/${id}`)}
       >
         <Card.Content>
@@ -46,9 +48,9 @@ class Posts extends react.Component {
         ...this.state.posts,
         {
           id: uuidv4(),
-          username: username,
-          title: title,
-          description: description,
+          postUsername: username,
+          postTitle: title,
+          postDescription: description,
         },
       ],
     });
@@ -63,10 +65,10 @@ class Posts extends react.Component {
             <Card.Group itemsPerRow={1}>
               {this.state.posts.map((post) =>
                 this.renderPosts(
-                  post.username,
-                  post.title,
-                  post.description,
-                  post.id
+                  post.postUsername,
+                  post.postTitle,
+                  post.postDescription,
+                  post.postId
                 )
               )}
             </Card.Group>

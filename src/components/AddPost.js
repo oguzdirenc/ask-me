@@ -1,3 +1,4 @@
+import axios from "axios";
 import react from "react";
 import { Button, Form, Icon, Modal } from "semantic-ui-react";
 
@@ -12,6 +13,13 @@ class AddPost extends react.Component {
   handlePostSave = () => {
     const { username, postTitle, postContent } = this.state;
     this.props.savePost(username, postTitle, postContent);
+    axios
+      .post("http://localhost:8080/posts", {
+        postUsername: username,
+        postTitle: postTitle,
+        postDescription: postContent,
+      })
+      .then((response) => console.log(response));
     this.setState({
       modalOpen: false,
     });
