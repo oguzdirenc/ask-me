@@ -1,0 +1,12 @@
+.delete-button {
+  background: transparent !important;
+  padding-top: 0% !important;
+  margin-top: 0% !important;
+}
+.header-font {
+  font-weight: bold;
+  color: black;
+}
+.comment-font {
+  color: black;
+}

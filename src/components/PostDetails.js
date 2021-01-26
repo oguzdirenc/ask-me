@@ -8,6 +8,8 @@ export class PostDetails extends Component {
   state = {
     comments: [],
     post: {},
+    commentDescription: "",
+    commentUsername: "",
   };
 
   componentDidMount() {
@@ -20,6 +22,21 @@ export class PostDetails extends Component {
         })
       );
   }
+
+  handleCommentSave = () => {
+    axios
+      .post(`http://localhost:8080/comments/${this.props.match.params.id}`, {
+        commentDescription: this.state.commentDescription,
+        commentUsername: this.state.commentUsername,
+      })
+      .then((response) =>
+        this.setState({
+          comments: [...this.state.comments, response.data],
+          commentUsername: "",
+          commentDescription: "",
+        })
+      );
+  };
 
   renderPost = () => {
     return (
@@ -69,12 +86,30 @@ export class PostDetails extends Component {
             )
           )}
           <Form reply>
-            <Form.TextArea />
+            <Form.Input
+              value={this.state.commentUsername}
+              onChange={(event) =>
+                this.setState({
+                  commentUsername: event.target.value,
+                })
+              }
+              label="Username"
+              placeholder="Enter your user name"
+            />
+            <Form.TextArea
+              value={this.state.commentDescription}
+              onChange={(event) =>
+                this.setState({
+                  commentDescription: event.target.value,
+                })
+              }
+            />
             <Button
               content="Add Reply"
               labelPosition="left"
               icon="edit"
               primary
+              onClick={this.handleCommentSave}
             />
           </Form>
         </Comment.Group>

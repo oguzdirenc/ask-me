@@ -1,9 +1,10 @@
 import react from "react";
-import { Card, Grid } from "semantic-ui-react";
+import { Card, Grid, Button, Icon } from "semantic-ui-react";
 import AddPost from "./AddPost";
 import { v4 as uuidv4 } from "uuid";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
+import "../styles/deleteButton.css";
 
 class Posts extends react.Component {
   state = {
@@ -26,11 +27,25 @@ class Posts extends react.Component {
         onClick={() => this.props.history.push(`/postDetails/${id}`)}
       >
         <Card.Content>
-          <Card.Header>{title}</Card.Header>
           <Grid>
             <Grid.Row>
-              <Grid.Column width={13}>
-                <Card.Description>{description}</Card.Description>
+              <Grid.Column width={14}>
+                <Card.Header className="header-font">{title}</Card.Header>
+              </Grid.Column>
+              <Grid.Column verticalAlign="top" width={2}>
+                <Button className="delete-button" icon>
+                  <Icon name="delete" />
+                </Button>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+
+          <Grid>
+            <Grid.Row verticalAlign="top">
+              <Grid.Column width={12}>
+                <Card.Description className="comment-font">
+                  {description}
+                </Card.Description>
               </Grid.Column>
               <Grid.Column width={3}>
                 <Card.Meta>{username}</Card.Meta>
