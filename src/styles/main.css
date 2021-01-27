@@ -1,0 +1,33 @@
+body {
+  background-image: url("https://venngage-wordpress.s3.amazonaws.com/uploads/2018/09/Minimalist-Crumpled-Paper-Simple-Background-Image.jpg") !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+}
+.delete-button {
+  background: transparent !important;
+  padding-top: 0% !important;
+  margin-top: 0% !important;
+}
+.header-font {
+  font-weight: bold;
+  color: black;
+}
+.comment-font {
+  color: black;
+}
+.post-details-button {
+  margin-bottom: 10px !important;
+}
+.my-card {
+  background-color: #f7f9fa !important;
+}
+.add-button-background {
+  background: transparent !important;
+}
+.spinner-background {
+  background: transparent !important;
+}
+.dad-joke {
+  text-align: center !important;
+  font-style: italic !important;
+}

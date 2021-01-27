@@ -4,7 +4,7 @@ import AddPost from "./AddPost";
 import { v4 as uuidv4 } from "uuid";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
-import "../styles/deleteButton.css";
+import "../styles/main.css";
 
 class Posts extends react.Component {
   state = {
@@ -19,12 +19,25 @@ class Posts extends react.Component {
     );
   }
 
+  handlePostDelete(id) {
+    axios
+      .delete(`http://localhost:8080/posts/delete/${id}`)
+      .then((response) => {
+        let filteredPosts = this.state.posts.filter(
+          (post) => post.postId !== id
+        );
+        this.setState({
+          posts: filteredPosts,
+        });
+      });
+  }
+
   renderPosts = (username, title, description, id) => {
     return (
       <Card
+        className="my-card"
         style={{ wordWrap: "break-word" }}
         key={uuidv4()}
-        onClick={() => this.props.history.push(`/postDetails/${id}`)}
       >
         <Card.Content>
           <Grid>
@@ -32,9 +45,16 @@ class Posts extends react.Component {
               <Grid.Column width={14}>
                 <Card.Header className="header-font">{title}</Card.Header>
               </Grid.Column>
-              <Grid.Column verticalAlign="top" width={2}>
-                <Button className="delete-button" icon>
-                  <Icon name="delete" />
+              <Grid.Column floated="right" verticalAlign="top" width={2}>
+                <Button
+                  onClick={() => this.handlePostDelete(id)}
+                  className="delete-button"
+                >
+                  <Icon
+                    style={{ paddingLeft: "20px" }}
+                    name="delete"
+                    color="red"
+                  />
                 </Button>
               </Grid.Column>
             </Grid.Row>
@@ -51,18 +71,28 @@ class Posts extends react.Component {
                 <Card.Meta>{username}</Card.Meta>
               </Grid.Column>
             </Grid.Row>
+            <Card.Content extra>
+              <Button
+                basic
+                className="post-details-button"
+                color="green"
+                onClick={() => this.props.history.push(`/postDetails/${id}`)}
+              >
+                See this post
+              </Button>
+            </Card.Content>
           </Grid>
         </Card.Content>
       </Card>
     );
   };
 
-  savePost = (username, title, description) => {
+  savePost = (username, title, description, id) => {
     this.setState({
       posts: [
         ...this.state.posts,
         {
-          id: uuidv4(),
+          postId: id,
           postUsername: username,
           postTitle: title,
           postDescription: description,

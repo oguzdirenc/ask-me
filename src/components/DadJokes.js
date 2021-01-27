@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { Component } from "react";
 import { Dimmer, Loader } from "semantic-ui-react";
+import "../styles/main.css";
 
 export class DadJokes extends Component {
   state = {
@@ -42,12 +43,12 @@ export class DadJokes extends Component {
     return (
       <div>
         {this.state.loading && (
-          <Dimmer active inverted>
+          <Dimmer className="spinner-background" active inverted>
             <Loader />
           </Dimmer>
         )}
 
-        <h1>{this.state.joke}</h1>
+        <h1 className="dad-joke">- {this.state.joke}</h1>
       </div>
     );
   }

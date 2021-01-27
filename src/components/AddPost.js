@@ -12,16 +12,22 @@ class AddPost extends react.Component {
 
   handlePostSave = () => {
     const { username, postTitle, postContent } = this.state;
-    this.props.savePost(username, postTitle, postContent);
+
     axios
       .post("http://localhost:8080/posts", {
         postUsername: username,
         postTitle: postTitle,
         postDescription: postContent,
       })
-      .then((response) => console.log(response));
+      .then((response) => {
+        let postId = response.data.postId;
+        this.props.savePost(username, postTitle, postContent, postId);
+      });
     this.setState({
       modalOpen: false,
+      username: "",
+      postTitle: "",
+      postContent: "",
     });
   };
 
@@ -33,6 +39,9 @@ class AddPost extends react.Component {
         onClose={() =>
           this.setState({
             modalOpen: false,
+            username: "",
+            postTitle: "",
+            postContent: "",
           })
         }
       >
@@ -90,7 +99,7 @@ class AddPost extends react.Component {
     return (
       <div>
         <Button
-          style={{ backgroundColor: "white" }}
+          className="add-button-background"
           onClick={this.handleAddPost}
           icon
         >
